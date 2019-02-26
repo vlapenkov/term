@@ -1,0 +1,54 @@
+<form class="example-form form-inline" [formGroup]="productsForm" (ngSubmit)="onSubmit()">
+      
+    <div class="form-group">
+  <mat-form-field [ngClass]="'first second'">
+    <input matInput [matAutocomplete]="auto" formControlName="productInput" #fName placeholder="product">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
+      <mat-option *ngFor="let product of _filteredproducts$ | async"  
+        [value]="product">
+        <span>{{ product.name }}</span>
+        <small> | ID: {{product.productId}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  </div>
+  <!--<span>Your choice is: {{productsForm.get('searchCtrl').value | json}}</span> -->
+  <div class="form-group">
+  <mat-form-field>
+    <input matInput [matAutocomplete]="autoBrand" formControlName="brandInput" placeholder="brand">
+    <mat-autocomplete #autoBrand="matAutocomplete"  (optionSelected)="onBrandChanged($event)">
+      <mat-option *ngFor="let brand of _brands$ | async"  
+        [value]="brand">
+        <span>{{ brand }}</span>
+        
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  </div>
+  
+  <mat-form-field>
+    <input matInput [matAutocomplete]="autoModel" formControlName="modelInput" placeholder="model">
+    <mat-autocomplete #autoModel="matAutocomplete" [displayWith]="displayModel" >
+      <mat-option *ngFor="let model of _models$ | async"  
+        [value]="model">
+        <span>{{ model.slug }}</span>
+        
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+  <button type="submit" class="btn btn-primary" [disabled]="!productsForm.valid" >Submit</button>
+  
+  </form>
+ <!-- <span>Your choice is: {{productsForm.get('brandInput').value | json}}</span> 
+  {{getActiveBrand()}}
+ -->
+  <!--
+  <pre>
+     
+      
+    {{productsForm.valid  }}
+    {{productsForm.get('textCtrl').errors |json}}
+      {{productsForm.get('searchCtrl').errors |json}}
+      {{productsForm.get('brandInput').errors |json}}
+      </pre> -->

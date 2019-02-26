@@ -1,0 +1,23 @@
+
+<app-filter-cartitem></app-filter-cartitem>
+<div *ngIf="carItems$; else loadingBlock">
+  <ul>
+  <li *ngFor="let carItem of carItems$ | async ; index as i; odd as isOdd">
+     Id is {{carItem.id }},
+      {{carItem.product.productId }}
+      {{carItem.product.name }}
+      {{carItem.brand }}
+      {{carItem.carModel?.name }}
+     {{i}}
+   <a (click)="delete(carItem.id)">X</a>
+   </li>
+  </ul>
+  </div>
+<div class="form-container">
+  <app-new-caritem (setCarItem)="addCarItem($event)"></app-new-caritem>
+</div>
+<ng-template #loadingBlock>
+  <div>
+    ....loading
+  </div>
+</ng-template>

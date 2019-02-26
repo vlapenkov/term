@@ -1,0 +1,29 @@
+
+<section class="form-inline">
+<div class="form-group">
+  <mat-form-field [ngClass]="'first second'">
+    <input matInput [matAutocomplete]="auto" [formControl]="searchByProductId"  placeholder="product">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct" (optionSelected)='doFilter($event)'>
+      <mat-option *ngFor="let product of _filteredproducts$ | async"  
+        [value]="product">
+        <span>{{ product.name }}</span>
+        <small> | ID: {{product.productId}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <a (click)="clearProductFilter()">X</a>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <input matInput [matAutocomplete]="autoBrand" [formControl]="searchByBrand" placeholder="brand">
+      <mat-autocomplete #autoBrand="matAutocomplete"  (optionSelected)="doFilter($event)">
+        <mat-option *ngFor="let brand of _brands$ | async"  
+          [value]="brand">
+          <span>{{ brand }}</span>
+          
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <a (click)="clearBrandFilter()">X</a>
+    </div>
+</section>

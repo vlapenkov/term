@@ -1,0 +1,9 @@
+<ul>
+  <li *ngFor="let item of carItems$ |async as items; let counter=index; ">
+    {{item | json}}
+     
+  </li>
+  </ul>
+
+<button type="button" class="btn btn-primary" (click)="load()">Load</button>
+  <button type="button" class="btn btn-primary" (click)="add()">Save</button>
