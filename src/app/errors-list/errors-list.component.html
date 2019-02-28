@@ -1,9 +1,13 @@
 <ul>
-  <li *ngFor="let item of carItems$ |async as items; let counter=index; ">
+  <li *ngFor="let item of carItems$ |async | paginate: { itemsPerPage: 5, currentPage: p }">
     {{item | json}}
      
   </li>
   </ul>
+
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+               
+    
 
 <button type="button" class="btn btn-primary" (click)="load()">Load</button>
   <button type="button" class="btn btn-primary" (click)="add()">Save</button>

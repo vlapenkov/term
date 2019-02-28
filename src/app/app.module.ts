@@ -19,6 +19,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { carItemsReducer } from './shared/store/caritemsreducer';
 import { FilterCartitemComponent } from './list-caritem/filter-cartitem/filter-cartitem.component';
 import { filterReducer } from './shared/store/caritemsfilterreducer';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { filterReducer } from './shared/store/caritemsfilterreducer';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot( { carItems:carItemsReducer, filter:filterReducer}),

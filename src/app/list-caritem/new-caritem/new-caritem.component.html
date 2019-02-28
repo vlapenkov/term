@@ -1,9 +1,11 @@
 <form class="example-form form-inline" [formGroup]="productsForm" (ngSubmit)="onSubmit()">
-      
+    
+    
     <div class="form-group">
+        
   <mat-form-field [ngClass]="'first second'">
-    <input matInput [matAutocomplete]="auto" formControlName="productInput" #fName placeholder="product">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
+    <input matInput [matAutocomplete]="autoProduct" formControlName="productInput" #fName placeholder="product" (change)="onProductChanged()" >
+    <mat-autocomplete #autoProduct="matAutocomplete" [displayWith]="displayProduct" (optionSelected)="onProductSelected($event)">
       <mat-option *ngFor="let product of _filteredproducts$ | async"  
         [value]="product">
         <span>{{ product.name }}</span>
@@ -14,16 +16,21 @@
   </div>
   <!--<span>Your choice is: {{productsForm.get('searchCtrl').value | json}}</span> -->
   <div class="form-group">
+     
   <mat-form-field>
-    <input matInput [matAutocomplete]="autoBrand" formControlName="brandInput" placeholder="brand">
+    <input matInput [matAutocomplete]="autoBrand" formControlName="brandInput" placeholder="brand" >
     <mat-autocomplete #autoBrand="matAutocomplete"  (optionSelected)="onBrandChanged($event)">
-      <mat-option *ngFor="let brand of _brands$ | async"  
+      <mat-option *ngFor="let brand of _brands$ | async as brands"        
         [value]="brand">
         <span>{{ brand }}</span>
         
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+  </div>
+  <div class="alert alert-danger">
+  {{productsForm.errors|json}}
+  {{productsForm.get('productInput').errors |json}}
   </div>
   
   <mat-form-field>
@@ -38,6 +45,7 @@
   </mat-form-field>
   
   <button type="submit" class="btn btn-primary" [disabled]="!productsForm.valid" >Submit</button>
+  
   
   </form>
  <!-- <span>Your choice is: {{productsForm.get('brandInput').value | json}}</span> 

@@ -68,17 +68,15 @@ export class FilterCartitemComponent implements OnInit {
     
   }
   
-clearProductFilter()
+clearFilter(nameOfFilter:string)
 {
-  this.searchByProductId.setValue(null);
+  if(nameOfFilter==='product')  this.searchByProductId.setValue(null);
+  else   this.searchByBrand.setValue(null);
+
   this.doFilter();
 }
 
-clearBrandFilter()
-{
-  this.searchByBrand.setValue(null);
-  this.doFilter();
-}
+
 
   doFilter() {   
     

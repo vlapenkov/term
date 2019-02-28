@@ -51,17 +51,17 @@ getCarItems() {
        
     }
 
-  add(item:ICarItem)
+  add(item:ICarItem, callback: (item:any)=>void)
   {    
     this.http.post(`${this._baseUrl}api/caritems`, item).toPromise().then(
       
       (response:ICarItem) => {
       // add new user
-    
+      callback(null);
       this.store.dispatch(new AddCarItemAction(response));
 
 
-  },er=>console.log(er)
+  },error=>{ console.log(error) ; callback(error);}
   );
 }
 
