@@ -27,15 +27,10 @@ export class ListCaritemComponent implements OnInit {
     this.carItems$ = this.store.select('carItems');
   }
 
-  addCarItem(event)
-  {
-   // console.log(this.carItems[this.carItems.length-1]===event);
-  //  this.carItems.push(event);
-    //console.log(event);
-  }
+  
 
   delete(i){
     this.serviceO.delete(i);
- // this.carItems.splice(i,1);
+ 
   }
 }

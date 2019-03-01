@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import {ListCaritemComponent} from './list-caritem/list-caritem.component';
 import { ErrorsListComponent } from './errors-list/errors-list.component';
 import { NewCaritemComponent } from './list-caritem/new-caritem/new-caritem.component'
-import {MatAutocompleteModule,MatFormFieldModule,MatInputModule} from  '@angular/material';
+import {MatAutocompleteModule,MatFormFieldModule,MatInputModule, MatSnackBarModule} from  '@angular/material';
 import { environment } from '../environments/environment';
 import { TERMINAL_URL } from './config';
 import { ProductService } from './shared/services/productbyid.service';
@@ -31,6 +31,7 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     FilterCartitemComponent
   ],
   imports: [
+    MatSnackBarModule,
     MatAutocompleteModule,
     MatFormFieldModule,MatInputModule,
     BrowserModule,

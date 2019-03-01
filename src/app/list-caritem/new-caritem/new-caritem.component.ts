@@ -11,9 +11,10 @@ import { AppState } from '../../appstate';
 import { IProduct } from 'src/app/shared/models/iProduct';
 import { AddCarItemAction } from 'src/app/shared/store/caritemsreducer';
 import { OrchestrService } from 'src/app/shared/services/orchestr.service';
-import { MatAutocomplete } from '@angular/material';
+import { MatAutocomplete, MatSnackBar } from '@angular/material';
 import { strictEqual } from 'assert';
 import { asyncProductExistsValidator } from 'src/app/shared/services/productExistsValidator';
+import { generateYears } from 'src/app/shared/services/yearsgenerator';
 
 
 
@@ -26,15 +27,16 @@ export class NewCaritemComponent implements OnInit {
  
   @ViewChild("autoProduct") mProduct: MatAutocomplete;
   @ViewChild("autoBrand") mBrand: MatAutocomplete;
-  @Output()
-  public setCarItem: EventEmitter<ICarItem> = new EventEmitter();
-  errors = [];
+  
+  
+  
   
   _filteredproducts$ :Observable<IProduct[]>;
 _brands$ : Observable<string[]>;
 _models$ : Observable<ICarModel[]> = empty();
 
 brands:string[];
+_years:number[];
 productsForm: FormGroup;
 
 
@@ -42,19 +44,30 @@ constructor(private service: ProductService,
  private podborService: PodborByAutoService ,
   private fb: FormBuilder ,
   private store: Store<AppState>, 
-  private serviceO:OrchestrService) { 
-
+  private serviceO:OrchestrService,
+  private snackBar: MatSnackBar
+  ) { 
+this._years = generateYears();
   }
 
   ngOnInit(): void {
     //debugger;
-    this.productsForm= new FormGroup (
+/*    this.productsForm= new FormGroup (
       {productInput: new FormControl('',[Validators.required],[asyncProductExistsValidator(this.service)]) ,
       brandInput: new FormControl('',[Validators.required, FormCustomValidators.valueSelected(()=>this.getBrands())]),
       modelInput: new FormControl(''),
+      yearInput:new FormControl(''),
       //testCtrl: new FormControl('test',[Validators.required]),
-    });
+    }); */
 
+
+    this.productsForm= this.fb.group (
+      {productInput: ['',[Validators.required],[asyncProductExistsValidator(this.service)]] ,
+      brandInput: ['',[Validators.required, FormCustomValidators.valueSelected(()=>this.getBrands())]],
+      modelInput: '',
+      yearInput:'',
+      
+    });
 
       
 
@@ -84,8 +97,7 @@ this._filteredproducts$ = this.productsForm.get('productInput').valueChanges.pip
 
   
   onBrandChanged()
-  {
-   
+  {   
     this.productsForm.get('modelInput').setValue({name:'',slug:''});
   }
 
@@ -120,31 +132,27 @@ else return [];
 }
 
 onSubmit() {
-  // TODO: Use EventEmitter with form value
- //console.warn(this.productsForm.get('brandInput').value );
+  
 
  let carItem: ICarItem = {product:this.productsForm.get('productInput').value,
                           brand: this.productsForm.get('brandInput').value,
-                          carModel:this.productsForm.get('modelInput').value
+                          carModel:this.productsForm.get('modelInput').value,
+                          year:this.productsForm.get('yearInput').value
                           }
 
 
                           this.serviceO.add(carItem,this.afterAdded.bind(this));
-  //                        console.log('submited',carItem )
-  //                        this.setCarItem.emit(carItem);
-                       //  console.log(carItem);
+ 
 }
 
-afterAdded(result)
+afterAdded(resultError)
 {
-debugger;
-  
-if (result && result.status=== 400 && result.error ) 
-  if( result.error[""] && Array.isArray(result.error[""]))
-  
-  //  this.productsForm.get('productInput').setErrors({'incorrect': true});
-  this.productsForm.setErrors({'incorrect': true});
-  
+if (resultError)
+  this.productsForm.setErrors(resultError);
+  else
+  this.snackBar.open('Запись добавлена', 'Закрыть', {
+    duration: 3000
+  });
 }
 
 

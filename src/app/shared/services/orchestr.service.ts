@@ -56,12 +56,18 @@ getCarItems() {
     this.http.post(`${this._baseUrl}api/caritems`, item).toPromise().then(
       
       (response:ICarItem) => {
-      // add new user
-      callback(null);
-      this.store.dispatch(new AddCarItemAction(response));
+        this.store.dispatch(new AddCarItemAction(response));
+      callback(null);      
 
+  },error=>{ console.log(error) ;
+  
+    //debugger;
+    let errorObject= {};
 
-  },error=>{ console.log(error) ; callback(error);}
+    if (error && error.status=== 400 && error.error ) errorObject= {'error400':true};
+    else errorObject={'error500': true};
+  
+    callback(errorObject);}
   );
 }
 
@@ -69,7 +75,7 @@ delete(id:number)
 {   
   this.http.delete(`${this._baseUrl}api/caritems/${id}`).toPromise().then(result=>
    { 
-     debugger;
+ 
     this.store.dispatch(new RemoveCarItemAction(id));
    }
   );

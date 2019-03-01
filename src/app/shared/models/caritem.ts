@@ -8,4 +8,5 @@ export interface ICarItem
     product?:IProduct,
     brand?:string,
     carModel?: ICarModel
+    year?:number
 }

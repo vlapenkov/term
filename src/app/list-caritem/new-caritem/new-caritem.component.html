@@ -4,8 +4,8 @@
     <div class="form-group">
         
   <mat-form-field [ngClass]="'first second'">
-    <input matInput [matAutocomplete]="autoProduct" formControlName="productInput" #fName placeholder="product" (change)="onProductChanged()" >
-    <mat-autocomplete #autoProduct="matAutocomplete" [displayWith]="displayProduct" (optionSelected)="onProductSelected($event)">
+    <input matInput [matAutocomplete]="autoProduct" formControlName="productInput" #fName placeholder="product" (change)="empty()" >
+    <mat-autocomplete #autoProduct="matAutocomplete" [displayWith]="displayProduct" (optionSelected)="empty()">
       <mat-option *ngFor="let product of _filteredproducts$ | async"  
         [value]="product">
         <span>{{ product.name }}</span>
@@ -28,10 +28,9 @@
     </mat-autocomplete>
   </mat-form-field>
   </div>
-  <div class="alert alert-danger">
-  {{productsForm.errors|json}}
-  {{productsForm.get('productInput').errors |json}}
-  </div>
+
+  
+  
   
   <mat-form-field>
     <input matInput [matAutocomplete]="autoModel" formControlName="modelInput" placeholder="model">
@@ -43,11 +42,26 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+
+  <mat-form-field>
+      <input matInput [matAutocomplete]="autoYear" formControlName="yearInput" placeholder="year">
+      <mat-autocomplete #autoYear="matAutocomplete"  >
+        <mat-option *ngFor="let model of _years"  
+          [value]="model">  
+          <span>{{ model }}</span>                  
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   
   <button type="submit" class="btn btn-primary" [disabled]="!productsForm.valid" >Submit</button>
   
   
   </form>
+  <span class="alert alert-danger" *ngIf="productsForm.errors">
+      <em *ngIf="productsForm.errors.error400"> Данный набор полей уже существует</em>
+      <em *ngIf="productsForm.errors.error500">Произошла ошибка</em>
+      
+    </span>
  <!-- <span>Your choice is: {{productsForm.get('brandInput').value | json}}</span> 
   {{getActiveBrand()}}
  -->
