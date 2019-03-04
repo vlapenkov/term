@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
 import { ProductService } from '../../shared/services/productbyid.service';
@@ -18,7 +18,10 @@ import { ICarItem } from 'src/app/shared/models/caritem';
   templateUrl: './filter-cartitem.component.html',
   styleUrls: ['./filter-cartitem.component.css']
 })
-export class FilterCartitemComponent implements OnInit {
+export class FilterCartitemComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    
+  }
 
   input :HTMLInputElement;
   _filteredproducts$ :Observable<IProduct[]>;
@@ -38,25 +41,11 @@ export class FilterCartitemComponent implements OnInit {
   
   ngOnInit() {
     this.store.select('filter').subscribe(currentFilter=>this.initValues(currentFilter));
-/*
-  let filter$=this.store.select('filter');
-   filter$.pipe(
-    //tap(x=>console.log('action1 productid is', x.productId)),
-    mergeMap( filter => 
 
-     this.service.getOneProduct(filter.productId)),
-     
-  
-    
-      
-   ).subscribe( result =>  this.initValues(result),
-   error=>console.log(error)
-   );//.unsubscribe();
-*/
    
 
     this._filteredproducts$ = this.searchByProductId.valueChanges.pipe(  
-      tap(x=>console.log(x)),
+   
       debounceTime(200),
       distinctUntilChanged(),
       switchMap(value => this.service.getAllProducts(value)));
@@ -79,14 +68,12 @@ clearFilter(nameOfFilter:string)
 
 
   doFilter() {   
-    
-    
+        
     let product = this.searchByProductId.value;
     //let productId=this.searchByProductId!==null && this.searchByProductId.value!==null ? this.searchByProductId.value.value : null;
-    
-    
+        
     let newFilter={product: product, brand:this.searchByBrand.value, model:null};
-    console.log('n f is', newFilter) ; 
+    
 
   this.store.dispatch(new SetFilterAction(  newFilter));
   
