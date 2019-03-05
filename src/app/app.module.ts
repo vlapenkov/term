@@ -23,6 +23,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { Error404Component } from './error404/error404.component';
 import { LoginComponent } from './login/login.component'; // <-- import the module
 import { loginReducer } from './shared/store/loginreducer';
+import { reducers } from './appstate';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { loginReducer } from './shared/store/loginreducer';
     NgxPaginationModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot( {login: loginReducer, carItems:carItemsReducer, filter:filterReducer}),
+    StoreModule.forRoot(reducers /*{login: loginReducer, carItems:carItemsReducer, filter:filterReducer}*/),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     })
