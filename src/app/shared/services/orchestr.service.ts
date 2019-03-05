@@ -30,7 +30,7 @@ getCarItems() {
             {
             let productId=source.product ? source.product.productId:'';
             let brand = source.brand||'';
-        //    if (!productId) throw new Error("asdasd");
+        
             return({productId ,brand})
             
             }),

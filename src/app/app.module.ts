@@ -19,7 +19,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { carItemsReducer } from './shared/store/caritemsreducer';
 import { FilterCartitemComponent } from './list-caritem/filter-cartitem/filter-cartitem.component';
 import { filterReducer } from './shared/store/caritemsfilterreducer';
-import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import {NgxPaginationModule} from 'ngx-pagination';
+import { Error404Component } from './error404/error404.component';
+import { LoginComponent } from './login/login.component'; // <-- import the module
+import { loginReducer } from './shared/store/loginreducer';
 
 
 @NgModule({
@@ -28,7 +31,9 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     ListCaritemComponent,
     ErrorsListComponent,
     NewCaritemComponent,
-    FilterCartitemComponent
+    FilterCartitemComponent,
+    Error404Component,
+    LoginComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -41,7 +46,7 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     NgxPaginationModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot( { carItems:carItemsReducer, filter:filterReducer}),
+    StoreModule.forRoot( {login: loginReducer, carItems:carItemsReducer, filter:filterReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     })

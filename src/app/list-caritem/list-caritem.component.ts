@@ -14,7 +14,7 @@ import { OrchestrService } from '../shared/services/orchestr.service';
 export class ListCaritemComponent implements OnInit {
 
   showItemAdded:boolean=false;
-  carItems$: Observable<ICarItem[]>;
+  carItems$: Observable<ICarItem[]>=this.store.select('carItems');
   //carItems: ICarItem[] = carItems;
 
   constructor(private store: Store<AppState>, private  serviceO:OrchestrService) { 
@@ -24,7 +24,7 @@ export class ListCaritemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.carItems$ = this.store.select('carItems');
+   // this.carItems$ = this.store.select('carItems');
   }
 
   
