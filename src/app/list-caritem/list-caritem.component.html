@@ -1,26 +1,49 @@
+<div class="row">
+  <div class="col-md-8">
+    <app-filter-cartitem></app-filter-cartitem>
+    <div class="mb-3">
+      <button class="btn" [ngClass]="{'btn-outline-primary':showItemAdded,'btn-primary':!showItemAdded }" type="button"
+              (click)="showItemAdded=!showItemAdded">Добавить
+      </button>
+    </div>
+    <div class="form-container" [ngClass]="{'d-none':!showItemAdded}">
+      <app-new-caritem (setCarItem)="addCarItem($event)"></app-new-caritem>
+    </div>
+    <table *ngIf="carItems$; else loadingBlock" class="table table-striped">
+      <tbody>
+        <tr *ngFor="let carItem of carItems$ | async | paginate: { itemsPerPage: 10, currentPage: p } ; index as i; odd as isOdd">
+          <td>
+            {{carItem.id }}
+          </td>
+          <td>
+            {{carItem.product.productId }}
+          </td>
+          <td>
+            {{carItem.product.name }}
+          </td>
+          <td>
+            {{carItem.brand }}
+          </td>
+          <td>
+            {{carItem.carModel?.name }}
+          </td>
+          <td>
+            {{carItem.year }}
+          </td>
+          <td>
+            <div class="position-relative">
+            <a (click)="delete(carItem.id)" class="clear-field">×</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <ng-template #loadingBlock>
+      <div>
+        ....loading
+      </div>
+    </ng-template>
+  </div>
+</div>
 
-<app-filter-cartitem></app-filter-cartitem>
-<button class="btn" [ngClass]="{'btn-outline-primary':showItemAdded,'btn-primary':!showItemAdded }" type="button"  (click)="showItemAdded=!showItemAdded">add</button>
-<div class="form-container" [ngClass]="{'d-none':!showItemAdded}">
-    <app-new-caritem (setCarItem)="addCarItem($event)"></app-new-caritem>
-  </div>
-<div *ngIf="carItems$; else loadingBlock">
-  <ul>
-  <li *ngFor="let carItem of carItems$ | async | paginate: { itemsPerPage: 10, currentPage: p } ; index as i; odd as isOdd">
-     Id is {{carItem.id }},
-      {{carItem.product.productId }}
-      {{carItem.product.name }}
-      {{carItem.brand }}
-      {{carItem.carModel?.name }}
-      {{carItem.year }}
-     {{i}}
-   <a (click)="delete(carItem.id)">X</a>
-   </li>
-  </ul>
-  </div>
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-<ng-template #loadingBlock>
-  <div>
-    ....loading
-  </div>
-</ng-template>

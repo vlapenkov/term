@@ -1,9 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
-.mat-form-field-infix {
-    width: 250px !important;
- }
+.form-group .mat-form-field{
+  display: block;
+  position: relative;
+}
+.form-group .mat-form-field-infix{
+  width: auto;
+}
+.clear-field{
+  position: absolute;
+  right: 0;
+  top: 8px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  opacity: 0.6;
+  text-align: center;
+  width: 16px;
+  display: block;
+  height: 16px;
+  line-height: 13px;
+}
 
- .mat-form-field-wrapper
- {
-     margin-right: 20px;
- }
+.table td .clear-field{
+  top: 4px;
+}
+.mat-input-element{
+  padding-right: 16px !important;
+}
+.ngx-pagination{
+  padding-left: 0;
+}

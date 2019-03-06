@@ -1,19 +1,15 @@
-
 <h2 class="text-center">App component</h2>
 <div class="container-fluid">
   <div class="row">
-      <div class="col-2">
-          <div class="list-group">
-              <a class="list-group-item" [routerLink]="['list']" routerLinkActive="active">car items</a>
-              <a class="list-group-item" [routerLink]="['errors']" routerLinkActive="active">errors</a>
-              <a class="list-group-item" [routerLink]="['products']" routerLinkActive="active">products</a>
-              <a class="list-group-item" [routerLink]="['login']" routerLinkActive="active">login</a>
-             
-        </div>
-        </div>
-<div class="col-10">
-  <hr/>
-<router-outlet></router-outlet>
-</div>
-</div>
+    <div class="col-2">
+      <div class="list-group">
+        <a class="list-group-item" [routerLink]="['list']" routerLinkActive="active">car items</a>
+        <a class="list-group-item" [routerLink]="['errors']" routerLinkActive="active">errors</a>
+        <a class="list-group-item" [routerLink]="['products']" routerLinkActive="active">products</a>
+      </div>
+    </div>
+    <div class="col-10 pt-5">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

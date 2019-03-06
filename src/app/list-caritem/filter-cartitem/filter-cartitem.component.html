@@ -1,29 +1,34 @@
-
-<section class="form-inline">
-<div class="form-group">
-  <mat-form-field [ngClass]="'first second'">
-    <input matInput [matAutocomplete]="auto" [formControl]="searchByProductId"  placeholder="product">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct" (optionSelected)='doFilter($event)'>
-      <mat-option *ngFor="let product of _filteredproducts$ | async"  
-        [value]="product">
-        <span>{{ product.name }}</span>
-        <small> | ID: {{product.productId}}</small>
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <a (click)="clearFilter('product')">X</a>
-  </div>
-  <div class="form-group">
-    <mat-form-field>
-      <input matInput [matAutocomplete]="autoBrand" [formControl]="searchByBrand" placeholder="brand">
-      <mat-autocomplete #autoBrand="matAutocomplete"  (optionSelected)="doFilter($event)">
-        <mat-option *ngFor="let brand of _brands$ | async"  
-          [value]="brand">
-          <span>{{ brand }}</span>
-          
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <a (click)="clearFilter('brand')">X</a>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <mat-form-field [ngClass]="'first second'">
+        <input matInput [matAutocomplete]="auto" [formControl]="searchByProductId" placeholder="product">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct" (optionSelected)='doFilter($event)'>
+          <mat-option *ngFor="let product of _filteredproducts$ | async"
+                      [value]="product">
+            <span>{{ product.name }}</span>
+            <small> | ID: {{product.productId}}</small>
+          </mat-option>
+        </mat-autocomplete>
+        <a (click)="clearFilter('product')" class="clear-field">×</a>
+      </mat-form-field>
     </div>
-</section>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput [matAutocomplete]="autoBrand" [formControl]="searchByBrand" placeholder="brand">
+        <mat-autocomplete #autoBrand="matAutocomplete" (optionSelected)="doFilter($event)">
+          <mat-option *ngFor="let brand of _brands$ | async" [value]="brand">
+            <span>{{ brand }}</span>
+          </mat-option>
+        </mat-autocomplete>
+        <a (click)="clearFilter('brand')" class="clear-field">×</a>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+
+
+
