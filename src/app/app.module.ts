@@ -13,7 +13,7 @@ import { TERMINAL_URL } from './config';
 import { ProductService } from './shared/services/productbyid.service';
 import { PodborByAutoService } from './shared/services/podbor-by-auto.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { carItemsReducer } from './shared/store/caritemsreducer';
@@ -24,6 +24,7 @@ import { Error404Component } from './error404/error404.component';
 import { LoginComponent } from './login/login.component'; // <-- import the module
 import { loginReducer } from './shared/store/loginreducer';
 import { reducers } from './appstate';
+import { TokenInterceptor } from './shared/services/token.interceptor';
 
 
 @NgModule({
@@ -52,7 +53,15 @@ import { reducers } from './appstate';
       maxAge: 10
     })
   ],
-  providers: [ProductService,PodborByAutoService,{ provide: TERMINAL_URL, useValue: environment.terminalUrl },],
+  providers: [ProductService,PodborByAutoService,{ provide: TERMINAL_URL, useValue: environment.terminalUrl },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi:true
+
+    } 
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

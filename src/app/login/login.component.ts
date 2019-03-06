@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../shared/services/authentication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
+  
   model: any = {};
   loading = false;
   error = '';
   private redirectToUrl: string ;
   private static redirectToDefault: string = '/';
+
+  _subscription :Subscription;
 
   constructor(
     private router: Router,
@@ -29,11 +33,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
+  }
 
   login() {
     this.loading = true;
-    this.authenticationService.login2(this.model.username, this.model.password)
+  this._subscription=  this.authenticationService.login2(this.model.username, this.model.password)
       .subscribe(result => {
         if (result) {         
           // login successful
