@@ -13,13 +13,18 @@ import { TERMINAL_URL } from './config';
 import { ProductService } from './shared/services/productbyid.service';
 import { PodborByAutoService } from './shared/services/podbor-by-auto.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { carItemsReducer } from './shared/store/caritemsreducer';
 import { FilterCartitemComponent } from './list-caritem/filter-cartitem/filter-cartitem.component';
 import { filterReducer } from './shared/store/caritemsfilterreducer';
-import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import {NgxPaginationModule} from 'ngx-pagination';
+import { Error404Component } from './error404/error404.component';
+import { LoginComponent } from './login/login.component'; // <-- import the module
+import { loginReducer } from './shared/store/loginreducer';
+import { reducers } from './appstate';
+import { TokenInterceptor } from './shared/services/token.interceptor';
 
 
 @NgModule({
@@ -28,7 +33,9 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     ListCaritemComponent,
     ErrorsListComponent,
     NewCaritemComponent,
-    FilterCartitemComponent
+    FilterCartitemComponent,
+    Error404Component,
+    LoginComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -41,12 +48,20 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     NgxPaginationModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot( { carItems:carItemsReducer, filter:filterReducer}),
+    StoreModule.forRoot(reducers /*{login: loginReducer, carItems:carItemsReducer, filter:filterReducer}*/),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     })
   ],
-  providers: [ProductService,PodborByAutoService,{ provide: TERMINAL_URL, useValue: environment.terminalUrl },],
+  providers: [ProductService,PodborByAutoService,{ provide: TERMINAL_URL, useValue: environment.terminalUrl },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi:true
+
+    } 
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

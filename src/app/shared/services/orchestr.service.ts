@@ -8,7 +8,7 @@ import { AppState } from 'src/app/appstate';
 import { AddCarItemAction, LoadCarItemsAction, RemoveCarItemAction } from '../store/caritemsreducer';
 import { getState } from '../store/getState';
 import { switchMap, map, tap } from 'rxjs/operators';
-import { pipe } from 'rxjs';
+import { pipe, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,31 +22,31 @@ export class OrchestrService {
        
      }
 
-getCarItems() {
+getCarItems(): Observable<ICarItem[]> {
 
 
-       this.store.select('filter').pipe(
+     return  this.store.select(state => state.filter).pipe(
            map (source=> 
             {
             let productId=source.product ? source.product.productId:'';
             let brand = source.brand||'';
-        //    if (!productId) throw new Error("asdasd");
+        
             return({productId ,brand})
             
             }),
-           tap(value=>console.log('value is', value)),
-        switchMap(value => this.http.get(`${this._baseUrl}api/caritems`,{params:value}))
-        
-       ).subscribe(
-        (list:ICarItem[]) => {
-          
-          
+       //    tap(value=>console.log('value is', value)),
+        switchMap(value => this.http.get(`${this._baseUrl}api/caritems`,{params:value})),
+        tap((list:ICarItem[]) => {    
+    
           this.store.dispatch(new LoadCarItemsAction(list));}
           ,
           error =>console.log(error)
-       );
+       ),
+       switchMap(()=>this.store.select(state=>state.carItems))
+        
+       )
                
-       
+      
       
        
     }

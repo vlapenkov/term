@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/appstate';
 import { SetFilterAction } from 'src/app/shared/store/caritemsfilterreducer';
 import { ICarItemsFilter } from 'src/app/shared/models/ICarItemsFilter';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { IProduct } from 'src/app/shared/models/iProduct';
 import { ICarItem } from 'src/app/shared/models/caritem';
 
@@ -19,9 +19,9 @@ import { ICarItem } from 'src/app/shared/models/caritem';
   styleUrls: ['./filter-cartitem.component.css']
 })
 export class FilterCartitemComponent implements OnInit, OnDestroy {
-  ngOnDestroy(): void {
-    
-  }
+
+  _subscription:Subscription;
+  
 
   input :HTMLInputElement;
   _filteredproducts$ :Observable<IProduct[]>;
@@ -40,10 +40,9 @@ export class FilterCartitemComponent implements OnInit, OnDestroy {
     }
   
   ngOnInit() {
-    this.store.select('filter').subscribe(currentFilter=>this.initValues(currentFilter));
+ //  this._subscription= this.store.select('filter').subscribe(currentFilter=>this.initValues(currentFilter));
 
-   
-
+  
     this._filteredproducts$ = this.searchByProductId.valueChanges.pipe(  
    
       debounceTime(200),
@@ -65,7 +64,9 @@ clearFilter(nameOfFilter:string)
   this.doFilter();
 }
 
-
+ngOnDestroy(): void {
+ // this._subscription.unsubscribe();
+}
 
   doFilter() {   
         

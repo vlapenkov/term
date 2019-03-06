@@ -1,6 +1,7 @@
 import { Route } from "@angular/router";
 import {ListCaritemComponent} from './list-caritem/list-caritem.component';
 import { ErrorsListComponent } from "./errors-list/errors-list.component";
+import { LoginComponent } from "./login/login.component";
 /*import { InfoComponent } from "./components/info/info.component";
 import { ListitemComponent } from "./components/listcontainer/list/listitem/listitem.component";
 /import { ListcontainerComponent } from "./components/listcontainer/listcontainer.component";
@@ -26,6 +27,11 @@ component:ListCaritemComponent
   path:'errors',
   component:ErrorsListComponent    
   },
+ 
+  {
+    path:'login',
+    component:LoginComponent    
+  },  
 {
 path:'**',
 redirectTo:'list'
