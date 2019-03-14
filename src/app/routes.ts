@@ -1,17 +1,9 @@
 import { Route } from "@angular/router";
 import {ListCaritemComponent} from './list-caritem/list-caritem.component';
-import { ErrorsListComponent } from "./errors-list/errors-list.component";
 import { LoginComponent } from "./login/login.component";
-/*import { InfoComponent } from "./components/info/info.component";
-import { ListitemComponent } from "./components/listcontainer/list/listitem/listitem.component";
-/import { ListcontainerComponent } from "./components/listcontainer/listcontainer.component";
-import { ListCarComponent } from "./components/listcontainer/list/list.component";
-import { UserComponent } from "./components/listcontainer/user/user.component";
-import { UserResolveService } from "../services/userresolve.service";
-import { FormComponent } from "./components/form/form.component";
-import { Observable } from "rxjs";
-import { ObservableTestComponent } from "./components/observable-test/observable-test.component";
-*/
+import { ActionsModule } from "./actions/actions.module";
+import { ErrorsModule } from "./errors/errors.module";
+
 
 export const routes: Route[] = [
   {
@@ -24,14 +16,21 @@ path:'list',
 component:ListCaritemComponent    
 },
 {
+  path:'login',
+  component:LoginComponent    
+},  
+
+{
   path:'errors',
-  component:ErrorsListComponent    
+  //component:ErrorsListComponent    
+  loadChildren: './errors/errors.module#ErrorsModule'
   },
  
+  
   {
-    path:'login',
-    component:LoginComponent    
-  },  
+    path: 'actions',
+    loadChildren: './actions/actions.module#ActionsModule'
+  },
 {
 path:'**',
 redirectTo:'list'

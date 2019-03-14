@@ -5,37 +5,35 @@ import { RouterModule } from '@angular/router';
 import { routes } from './routes';
 import { AppComponent } from './app.component';
 import {ListCaritemComponent} from './list-caritem/list-caritem.component';
-import { ErrorsListComponent } from './errors-list/errors-list.component';
+
 import { NewCaritemComponent } from './list-caritem/new-caritem/new-caritem.component'
 import {MatAutocompleteModule,MatFormFieldModule,MatInputModule, MatSnackBarModule} from  '@angular/material';
 import { environment } from '../environments/environment';
 import { TERMINAL_URL } from './config';
-import { ProductService } from './shared/services/productbyid.service';
-import { PodborByAutoService } from './shared/services/podbor-by-auto.service';
+import { ProductService } from './shareddata/services/productbyid.service';
+import { PodborByAutoService } from './shareddata/services/podbor-by-auto.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { carItemsReducer } from './shared/store/caritemsreducer';
 import { FilterCartitemComponent } from './list-caritem/filter-cartitem/filter-cartitem.component';
-import { filterReducer } from './shared/store/caritemsfilterreducer';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Error404Component } from './error404/error404.component';
 import { LoginComponent } from './login/login.component'; // <-- import the module
-import { loginReducer } from './shared/store/loginreducer';
 import { reducers } from './appstate';
-import { TokenInterceptor } from './shared/services/token.interceptor';
+import { TokenInterceptor } from './shareddata/services/token.interceptor';
+import { SharedModule } from './shared/shared.module';
+//import { PageListComponent } from './page-list/page-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListCaritemComponent,
-    ErrorsListComponent,
+    ListCaritemComponent,    
     NewCaritemComponent,
     FilterCartitemComponent,
     Error404Component,
-    LoginComponent
+    LoginComponent    
   ],
   imports: [
     MatSnackBarModule,
@@ -47,6 +45,7 @@ import { TokenInterceptor } from './shared/services/token.interceptor';
     FormsModule,
     NgxPaginationModule,
     ReactiveFormsModule,
+    SharedModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers /*{login: loginReducer, carItems:carItemsReducer, filter:filterReducer}*/),
     StoreDevtoolsModule.instrument({

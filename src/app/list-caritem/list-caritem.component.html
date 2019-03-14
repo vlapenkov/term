@@ -1,17 +1,22 @@
+
 <div class="row">
   <div class="col-md-8">
     <app-filter-cartitem></app-filter-cartitem>
-    <div class="mb-3">
-      <button class="btn" [ngClass]="{'btn-outline-primary':showItemAdded,'btn-primary':!showItemAdded }" type="button"
-              (click)="showItemAdded=!showItemAdded">Добавить
-      </button>
+    <div class="mb-3 d-flex align-items-center">
+        <div class="mr-auto"><button class="btn" [ngClass]="{'btn-outline-primary':showItemAdded,'btn-primary':!showItemAdded }" type="button"
+          (click)="showItemAdded=!showItemAdded">Добавить
+  </button>      </div>
+        
+      
+  <pager [itemsPerPage]="itemsPerPage" (itemsPerPageChanged)="itemsPerPage=$event"></pager>
     </div>
     <div class="form-container" [ngClass]="{'d-none':!showItemAdded}">
-      <app-new-caritem (setCarItem)="addCarItem($event)"></app-new-caritem>
+      <app-new-caritem></app-new-caritem>
+     
     </div>
     <table *ngIf="carItems$; else loadingBlock" class="table table-striped">
       <tbody>
-        <tr *ngFor="let carItem of carItems$ | async | paginate: { itemsPerPage: 10, currentPage: p } ; index as i; odd as isOdd">
+        <tr *ngFor="let carItem of carItems$ | async | paginate: { itemsPerPage: itemsPerPage, currentPage: p } ; index as i; odd as isOdd">
           <td>
             {{carItem.id }}
           </td>

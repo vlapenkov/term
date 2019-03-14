@@ -1,0 +1,2 @@
+<input id="searchByName" class="form-control form-styled" type="text" name="searchByName" #searchByName  (input)="onSearch(searchByName.value)" autocomplete="off" placeholder="Поиск по названию">  
+<a (click)="searchByName.value=''; onSearch(searchByName.value); " class="clear-field right-20">×</a>

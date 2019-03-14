@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-6">
+      <div class="form-group">              
+        <app-search (searchChanged)="doSearch($event)"> </app-search>
+      </div>
+
+</div>
+    
+    <div class="col-md-6">
+<pager [itemsPerPage]="itemsPerPage" (itemsPerPageChanged)="itemsPerPage=$event"></pager>
+</div>
+</div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>
+      ID
+    </th>
+    <th>
+        Name
+    </th>
+    <th>
+      Date
+    </th>
+    
+    
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of actions$ |async | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+    <td>
+      {{item.id}}
+    </td>
+    <td> <div class="m-h-200">
+      {{item.dbAction}}
+      </div>
+    </td>
+    <td>
+      {{item.date }}  
+    </td>
+    
+  </tr>
+  </tbody>
+</table>
+
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+
+

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../shared/services/authentication.service';
+import { AuthenticationService } from '../shareddata/services/authentication.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   model: any = {};
   loading = false;
   error = '';
-  private redirectToUrl: string ;
+  public redirectToUrl: string ;
   private static redirectToDefault: string = '/';
 
   _subscription :Subscription;
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._subscription.unsubscribe();
+    if (this._subscription)    this._subscription.unsubscribe();
   }
 
   login() {

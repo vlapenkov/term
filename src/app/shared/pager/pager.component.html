@@ -1,0 +1,6 @@
+<div class="ml-auto">
+    <select [(ngModel)]="itemsPerPage" (ngModelChange)="onChangePageSize($event)" >
+      <option *ngFor="let c of pageSizes" [ngValue]="c"> {{c}} </option>
+    </select>
+
+  </div> 

@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,    
-  terminalUrl:"https://localhost:44363/"
- // terminalUrl:"https://localhost:44302/"
+ //terminalUrl:"http://term.yst.ru/"  
+ terminalUrl:"https://localhost:44363/"
+ 
 // terminalUrl:"https://terminal.yst.ru/"
 };
 

@@ -1,20 +1,19 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Observable, empty } from 'rxjs';
-import { ICarModel } from '../../shared/models/carmodel';
+import { ICarModel } from '../../shareddata/models/carmodel';
 import { FormGroup, FormBuilder, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { ProductService } from '../../shared/services/productbyid.service';
-import { PodborByAutoService } from '../../shared/services/podbor-by-auto.service';
+import { ProductService } from '../../shareddata/services/productbyid.service';
+import { PodborByAutoService } from '../../shareddata/services/podbor-by-auto.service';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
-import {ICarItem} from '../../shared/models/caritem';
+import {ICarItem} from '../../shareddata/models/caritem';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../appstate';
-import { IProduct } from 'src/app/shared/models/iProduct';
-import { AddCarItemAction } from 'src/app/shared/store/caritemsreducer';
-import { OrchestrService } from 'src/app/shared/services/orchestr.service';
+import { IProduct } from 'src/app/shareddata/models/iProduct';
+import { OrchestrService } from 'src/app/shareddata/services/orchestr.service';
 import { MatAutocomplete, MatSnackBar } from '@angular/material';
 import { strictEqual } from 'assert';
-import { asyncProductExistsValidator } from 'src/app/shared/services/productExistsValidator';
-import { generateYears } from 'src/app/shared/services/yearsgenerator';
+import { asyncProductExistsValidator } from 'src/app/shareddata/services/productExistsValidator';
+import { generateYears } from 'src/app/shareddata/services/yearsgenerator';
 
 
 
@@ -95,8 +94,10 @@ this._filteredproducts$ = this.productsForm.get('productInput').valueChanges.pip
       
   }
 
-  
-  onBrandChanged()
+  empty()
+  {}
+
+  onBrandChanged(event)
   {   
     this.productsForm.get('modelInput').setValue({name:'',slug:''});
   }

@@ -1,17 +1,16 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
-import { ProductService } from '../../shared/services/productbyid.service';
-import { PodborByAutoService } from '../../shared/services/podbor-by-auto.service';
+import { ProductService } from '../../shareddata/services/productbyid.service';
+import { PodborByAutoService } from '../../shareddata/services/podbor-by-auto.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, switchMap, tap, map, first, mergeMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/appstate';
-import { SetFilterAction } from 'src/app/shared/store/caritemsfilterreducer';
-import { ICarItemsFilter } from 'src/app/shared/models/ICarItemsFilter';
+import { SetFilterAction } from 'src/app/shareddata/store/caritemsfilterreducer';
 import { of, Subscription } from 'rxjs';
-import { IProduct } from 'src/app/shared/models/iProduct';
-import { ICarItem } from 'src/app/shared/models/caritem';
+import { IProduct } from 'src/app/shareddata/models/iProduct';
+import { ICarItem } from 'src/app/shareddata/models/caritem';
 
 @Component({
   selector: 'app-filter-cartitem',
@@ -61,14 +60,14 @@ clearFilter(nameOfFilter:string)
   if(nameOfFilter==='product')  this.searchByProductId.setValue(null);
   else   this.searchByBrand.setValue(null);
 
-  this.doFilter();
+  this.doFilter(null);
 }
 
 ngOnDestroy(): void {
  // this._subscription.unsubscribe();
 }
 
-  doFilter() {   
+  doFilter(event) {   
         
     let product = this.searchByProductId.value;
     //let productId=this.searchByProductId!==null && this.searchByProductId.value!==null ? this.searchByProductId.value.value : null;

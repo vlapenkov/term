@@ -24,7 +24,6 @@ export class OrchestrService {
 
 getCarItems(): Observable<ICarItem[]> {
 
-
      return  this.store.select(state => state.filter).pipe(
            map (source=> 
             {
@@ -34,7 +33,7 @@ getCarItems(): Observable<ICarItem[]> {
             return({productId ,brand})
             
             }),
-       //    tap(value=>console.log('value is', value)),
+       
         switchMap(value => this.http.get(`${this._baseUrl}api/caritems`,{params:value})),
         tap((list:ICarItem[]) => {    
     

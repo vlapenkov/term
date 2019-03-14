@@ -1,10 +1,9 @@
-import { ICarItem } from "../app/shared/models/caritem";
-import { ICarItemsFilter } from "./shared/models/ICarItemsFilter";
-import { ILoginData } from "./shared/models/iloginresponse";
+import { ICarItem } from "../app/shareddata/models/caritem";
+import { ILoginData } from "./shareddata/models/iloginresponse";
 import { ActionReducerMap } from "@ngrx/store";
-import { loginReducer } from "./shared/store/loginreducer";
-import { carItemsReducer } from "./shared/store/caritemsreducer";
-import { filterReducer } from "./shared/store/caritemsfilterreducer";
+import { loginReducer } from "./shareddata/store/loginreducer";
+import { carItemsReducer } from "./shareddata/store/caritemsreducer";
+import { filterReducer } from "./shareddata/store/caritemsfilterreducer";
 
 
 export interface AppState {
