@@ -23,6 +23,7 @@ import { LoginComponent } from './login/login.component'; // <-- import the modu
 import { reducers } from './appstate';
 import { TokenInterceptor } from './shareddata/services/token.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { MatSidenavModule } from '@angular/material';
 //import { PageListComponent } from './page-list/page-list.component';
 
 
@@ -32,7 +33,7 @@ import { SharedModule } from './shared/shared.module';
     ListCaritemComponent,    
     NewCaritemComponent,
     FilterCartitemComponent,    
-    LoginComponent    
+    LoginComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -45,6 +46,7 @@ import { SharedModule } from './shared/shared.module';
     NgxPaginationModule,
     ReactiveFormsModule,
     SharedModule,
+    MatSidenavModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers /*{login: loginReducer, carItems:carItemsReducer, filter:filterReducer}*/),
     StoreDevtoolsModule.instrument({
