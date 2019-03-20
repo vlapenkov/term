@@ -35,12 +35,14 @@ getCarItems(): Observable<ICarItem[]> {
             }),
        
         switchMap(value => this.http.get(`${this._baseUrl}api/caritems`,{params:value})),
+        // отправляю в store
         tap((list:ICarItem[]) => {    
     
           this.store.dispatch(new LoadCarItemsAction(list));}
           ,
           error =>console.log(error)
        ),
+       // получаю из store
        switchMap(()=>this.store.select(state=>state.carItems))
         
        )

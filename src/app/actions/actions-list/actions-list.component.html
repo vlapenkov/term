@@ -1,3 +1,4 @@
+<section class="m-t-30">
 <div class="row">
     <div class="col-md-6">
       <div class="form-group">              
@@ -29,14 +30,16 @@
   <tbody>
   <tr *ngFor="let item of actions$ |async | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
     <td>
+      <a [routerLink]="['/actions', item.id]">
       {{item.id}}
+    </a> 
     </td>
     <td> <div class="m-h-200">
       {{item.dbAction}}
       </div>
     </td>
     <td>
-      {{item.date }}  
+      {{item.date | date:'dd.MM.yyyy hh:mm:ss' }}  
     </td>
     
   </tr>
@@ -44,7 +47,7 @@
 </table>
 
 <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
+</section>
 
 
 

@@ -35,6 +35,7 @@
   overflow: hidden;
 }
 
+
 .form-styled
 {
   max-height:36px;
@@ -43,6 +44,11 @@
 .right-20
 {
   right:20px;
+}
+
+.m-t-30
+{
+  margin-top: 30px;
 }
 
 

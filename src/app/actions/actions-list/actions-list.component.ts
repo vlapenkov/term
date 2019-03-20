@@ -15,7 +15,7 @@ import { ActionsGettingService } from '../actions-getting.service';
   //providers:[ErrorsGettingService]
 })
 export class ActionsListComponent implements OnInit {
-  
+  p:number;
   itemsPerPage:number= 50;
   actions$:Observable<IDbAction[]>;
 

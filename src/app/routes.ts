@@ -3,6 +3,7 @@ import {ListCaritemComponent} from './list-caritem/list-caritem.component';
 import { LoginComponent } from "./login/login.component";
 import { ActionsModule } from "./actions/actions.module";
 import { ErrorsModule } from "./errors/errors.module";
+import { Error404Component } from "./shared/error404/error404.component";
 
 
 export const routes: Route[] = [
@@ -33,7 +34,7 @@ component:ListCaritemComponent
   },
 {
 path:'**',
-redirectTo:'list'
+component:Error404Component
 }
 ];
 

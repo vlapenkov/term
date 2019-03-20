@@ -44,4 +44,10 @@ public getResults():Observable<IErrorLog[]>
  return  this.subject.asObservable();
 }
 
+
+getResult(id:number):Observable<IErrorLog>
+{
+  const url =`${this._baseUrl}api/errors/${id}`;
+  return this.http.get<IErrorLog>(url)
+}
 }

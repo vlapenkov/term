@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TestComponent } from './test/test.component';
+import { ActionComponent } from './action/action.component';
 import { RouterModule } from '@angular/router';
 import { ActionsListComponent } from './actions-list/actions-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ActionsGettingService } from './actions-getting.service';
+import { ActionResolveService } from './action-resolve.service';
 
 @NgModule({
   imports: [
@@ -18,14 +19,17 @@ import { ActionsGettingService } from './actions-getting.service';
         component: ActionsListComponent
       },
       {
-        path: 'next',
-        component: TestComponent
+        path: ':id',
+        component: ActionComponent,
+        resolve: {
+          action:ActionResolveService
+        }
       },
     ])
   ],
   
-  declarations: [TestComponent,ActionsListComponent],
-  providers:[ActionsGettingService]
+  declarations: [ActionComponent,ActionsListComponent],
+  providers:[ActionsGettingService, ActionResolveService]
 })
 export class ActionsModule { }
 

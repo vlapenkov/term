@@ -8,8 +8,8 @@ import {
 
 
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of, empty, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(private router: Router) { }
@@ -18,12 +18,10 @@ export class TokenInterceptor implements HttpInterceptor {
 
     let relativeUrl = this.router.url; 
 
-  //if( request.url.includes('login')) return next.handle(request.clone());
+  if( request.url.includes('login')) return next.handle(request.clone());
 
-  if( !request.url.includes('caritems')) return next.handle(request.clone());
-
-  /*  if (!request.url.includes('login')) return next.handle(request.clone());
-    else this.router.navigate(['login']) */
+ // if( !request.url.includes('caritems')) return next.handle(request.clone());
+  
 
     let token = localStorage.getItem('auth_token')
     if (token != null) {
@@ -34,19 +32,23 @@ export class TokenInterceptor implements HttpInterceptor {
         }
       });      
       return next.handle(requestCloned).pipe(
-tap (()=>{console.log('interceptor success')}, err => {
-    //debugger;
-    if (err.status === 401)
-      this.router.navigate(['login'], { queryParams: { redirectToUrl: relativeUrl } })
-    else {
-      console.log('error on get drivers in TokenInterceptor');
-    }
-      //this.router.navigate(['404']) 
-  })
-      );
+        tap (()=>{console.log('interceptor success')}, err => {
+            //debugger;
+            if (err.status === 401)
+              {this.router.navigate(['login'], { queryParams: { redirectToUrl: relativeUrl } });
+return empty();
+        }
+            else {
+             return throwError(err);              
+             // console.log('error on get drivers in TokenInterceptor');
+            }
+              
+          })
+              );
 
 
-    } else { this.router.navigate(['login'], { queryParams: { redirectToUrl: relativeUrl } }) }
+    } 
+    else { this.router.navigate(['login'], { queryParams: { redirectToUrl: relativeUrl } }) }
   }
    
 }

@@ -5,6 +5,8 @@ import { ErrorsListComponent } from './errors-list/errors-list.component';
 import { ErrorsGettingService } from './errors-getting.service';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ErrorComponent } from './error/error.component';
+import { ErrorResolveService } from './error-resolve.service';
 
 @NgModule({
   imports: [
@@ -17,13 +19,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
         component: ErrorsListComponent
       },
       {
-        path: 'next',
-        component: ErrorsListComponent
+        path: ':id',
+        component: ErrorComponent,
+        resolve: {
+          action:ErrorResolveService
+        }
       },
+
     ])
   ],
-  declarations: [ErrorsListComponent],
-  providers: [ErrorsGettingService]
+  declarations: [ErrorsListComponent, ErrorComponent],
+  providers: [ErrorsGettingService, ErrorResolveService]
 })
 export class ErrorsModule { }
 

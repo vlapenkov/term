@@ -14,7 +14,7 @@ import { ErrorsGettingService } from '../errors-getting.service';
   //providers:[ErrorsGettingService]
 })
 export class ErrorsListComponent implements OnInit {
-  
+  p:number;
   itemsPerPage:number= 50;
   errors$:Observable<IErrorLog[]>;
 

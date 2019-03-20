@@ -11,28 +11,22 @@ import { LoadCarItemsAction } from '../shareddata/store/caritemsreducer';
   templateUrl: './list-caritem.component.html',
   styleUrls: ['./list-caritem.component.css']
 })
-export class ListCaritemComponent implements OnInit, OnDestroy {
+export class ListCaritemComponent implements OnInit {
   
 p:number;
-  subscription:Subscription;
+  
   showItemAdded:boolean=false;
   carItems$: Observable<ICarItem[]>;
   itemsPerPage:number= 50;
  
 
-  constructor(private store: Store<AppState>, private  serviceO:OrchestrService) { 
-
-  }
-
-  ngOnDestroy(): void {
-
-   }
+  constructor(private store: Store<AppState>, private  serviceO:OrchestrService) { }
+  
 
   ngOnInit() {   
    this.carItems$ = this.serviceO.getCarItems();
   }
 
-  
 
   delete(i){
     this.serviceO.delete(i);

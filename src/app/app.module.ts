@@ -18,7 +18,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FilterCartitemComponent } from './list-caritem/filter-cartitem/filter-cartitem.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { Error404Component } from './error404/error404.component';
+
 import { LoginComponent } from './login/login.component'; // <-- import the module
 import { reducers } from './appstate';
 import { TokenInterceptor } from './shareddata/services/token.interceptor';
@@ -31,8 +31,7 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
     ListCaritemComponent,    
     NewCaritemComponent,
-    FilterCartitemComponent,
-    Error404Component,
+    FilterCartitemComponent,    
     LoginComponent    
   ],
   imports: [

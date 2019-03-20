@@ -34,14 +34,19 @@ public setSearch(newSearchText:string):void{
    url=`${this._baseUrl}api/dbactions?filter=${newSearchText}`;
   
  this.http.get<IDbAction[]>(url).pipe(debounceTime(300)).toPromise().then(res=>this.subject.next(res)).catch(e=> console.log('error handled',e))
- /* .subscribe(
-    res=> { this.subject.next(res); subscription.unsubscribe();}); */
+ 
  
 }
 
 public getResults():Observable<IDbAction[]>
 {
  return  this.subject.asObservable();
+}
+
+getResult(id:number):Observable<IDbAction>
+{
+  const url =`${this._baseUrl}api/dbactions/${id}`;
+  return this.http.get<IDbAction>(url)
 }
 
 }
